@@ -1,0 +1,27 @@
+<mat-toolbar>
+  <div class="search">
+    <search-box
+      [articleList]="articleList"
+      (onKeyup)="_onSearch($event)"
+    ></search-box>
+  </div>
+  <span class="spacer"></span>
+  <div class="menu">
+    <view></view>
+  </div>
+  <div class="menu">
+    <variants-menu
+      [variantInfo]="{ name: 'author', list$: authors$ }"
+    ></variants-menu>
+  </div>
+  <div class="menu">
+    <variants-menu
+      [variantInfo]="{ name: 'tag', list$: tags$ }"
+    ></variants-menu>
+  </div>
+  <div class="menu">
+    <variants-menu
+      [variantInfo]="{ name: 'category', list$: categories$ }"
+    ></variants-menu>
+  </div>
+</mat-toolbar>

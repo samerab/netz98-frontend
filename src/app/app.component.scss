@@ -1,0 +1,41 @@
+.mat-toolbar {
+  background: #ffffff;
+  color: #939393;
+  height: 99px;
+  h2 {
+    margin-right: 25px;
+    cursor: pointer;
+    &:hover {
+      color: #015097;
+    }
+    &.active {
+      color: #f36422;
+    }
+  }
+}
+.logo {
+  display: grid;
+  place-items: center;
+  width: 100px;
+  margin: 0 25px;
+  cursor: pointer;
+  img {
+    width: 100%;
+  }
+}
+h3 {
+  cursor: pointer;
+}
+
+.spinner {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffffa1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}

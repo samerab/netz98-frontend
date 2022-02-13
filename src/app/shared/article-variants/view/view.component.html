@@ -1,0 +1,12 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <span>view</span>
+  <mat-icon>play_arrow</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button (click)="setView('top-img')" mat-menu-item>
+    <span>top image</span>
+  </button>
+  <button (click)="setView('side-img')" mat-menu-item>
+    <span>side image</span>
+  </button>
+</mat-menu>

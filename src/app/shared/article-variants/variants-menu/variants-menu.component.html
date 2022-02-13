@@ -1,0 +1,13 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <span>{{ variantInfo.name }}</span>
+  <mat-icon>play_arrow</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button
+    *ngFor="let variant of variantInfo.list$ | async"
+    (click)="navigateByVariant(variant)"
+    mat-menu-item
+  >
+    <span>{{ variant }}</span>
+  </button>
+</mat-menu>
