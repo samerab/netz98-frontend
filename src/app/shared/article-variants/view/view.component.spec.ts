@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { ArticleVariantsModule } from '../article-variants.module';
 import { ViewComponent } from './view.component';
 
 describe('ViewComponent', () => {
@@ -13,7 +15,7 @@ describe('ViewComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ViewComponent],
       providers: [provideMockStore({ initialState })],
-      imports: [MatMenuModule],
+      imports: [MatMenuModule, BrowserAnimationsModule, ArticleVariantsModule],
     }).compileComponents();
     store = TestBed.inject(MockStore);
   });
