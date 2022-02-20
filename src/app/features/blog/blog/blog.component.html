@@ -17,7 +17,11 @@
     {{ originTotal }}</span
   >
 </div>
-<article class="base" *ngFor="let article of articles$ | async">
+<article
+  [id]="article.id"
+  class="base"
+  *ngFor="let article of articles$ | async"
+>
   <div class="img">
     <a [href]="article.link" target="_blank">
       <img [src]="article.imgSrc ? article.imgSrc : 'assets/null.svg'" />

@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "articles": [
+    {
+      "id": "post-1177",
+      "imgSrc": "https://dev98.de/wp-content/uploads/2020/07/magentoajax1.png",
+      "link": "https://dev98.de/2020/09/14/ajax-loading-of-related-products-in-magento-2/",
+      "title": "AJAX loading of related products in Magento 2",
+      "pubDate": "2020-09-14T10:19:22+02:00",
+      "author": "Alexander Dite",
+      "summary": "Introduction In some projects the amount of related products can be significant. In my case there were more than 300 related products and upsell products on some product detail pages. The consequence of this was a high time to first byte on product detail pages. In the mentioned project it was about 15 seconds for some of the products. So we searched for a possible optimization. We finally decided to implement asynchronous loading of product recommendations via AJAX. At the…",
+      "categories": ["magento-2"],
+      "tags": [
+        "ajax",
+        "catalog",
+        "optimization",
+        "performance",
+        "products",
+        "related"
+      ]
+    },
+    {
+      "id": "post-1104",
+      "imgSrc": "https://dev98.de/wp-content/uploads/2019/06/dev98-Guzzle-Proxy-1.png",
+      "link": "https://dev98.de/2019/06/19/request-data-through-a-proxy-with-guzzlehttp-psr-7-compliant/",
+      "title": "Request data through a proxy with GuzzleHttp  PSR-7 compliant",
+      "pubDate": "2019-06-19T11:26:09+02:00",
+      "author": "Elias Henrich",
+      "summary": "When a Magento shop or any other PHP application is required to request data from or transmit data to a remote server, it is often necessary to redirect the traffic through a Http-proxy server. In my case this was essential because the called endpoint allows only certain IP addresses to access the requested ressource. Since I am working from various locations, each having a different IP address, I had to find a way that certain Http-requests are routed…",
+      "categories": ["general"],
+      "tags": ["guzzlehttp", "http", "magento2", "proxy", "psr", "psr-7"]
+    },
+    {
+      "id": "post-778",
+      "imgSrc": "https://dev98.de/wp-content/uploads/2017/09/img-dev98_think-outsite-the-box.png",
+      "link": "https://dev98.de/2017/09/01/think-outside-the-box-14-magento-2-as-api-framework/",
+      "title": "Think outside the box: Magento 2 as API framework",
+      "pubDate": "2017-09-01T11:06:09+02:00",
+      "author": "Simon Schröer",
+      "summary": "In this article, we will cover the web-API and how to use Magento 2 as a standalone API-framework. If the web-API is new to you, I recommend to read the development documentation of it first: Magento 2 API documentation Why should I do this? Short answer: Because you can! Not really, there is no reason why you shouldn’t try it at least and have some fun with it – you might get used to it 😉 With Magento 2, the…",
+      "categories": ["magento-2"],
+      "tags": ["api", "framework", "headless", "webapi", "ajax"]
+    }
+  ]
+}
