@@ -1,0 +1,12 @@
+<mat-toolbar [class.x-small]="layoutSv.xSmall | async">
+  <div id="search"></div>
+  <span class="spacer"></span>
+  <div *ngIf="!(layoutSv.sXs | async)" class="menus">
+    <div class="menu">
+      <view></view>
+    </div>
+    <div *ngFor="let variantInfo of variantInfoList" class="menu">
+      <variants-menu [variantInfo]="variantInfo"></variants-menu>
+    </div>
+  </div>
+</mat-toolbar>

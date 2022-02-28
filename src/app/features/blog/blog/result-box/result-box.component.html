@@ -1,0 +1,12 @@
+<div class="search-total">
+  <mat-icon
+    *ngIf="!resultTitle.includes('Search Results')"
+    [routerLink]="['/blog']"
+    >close</mat-icon
+  >
+  <span class="result-title">{{ resultTitle }}</span>
+  <span class="total"
+    >Results: <strong>{{ resultTotal }}</strong> Articles of
+    {{ originTotal }}</span
+  >
+</div>

@@ -1,0 +1,16 @@
+<ng-container *ngIf="drawerState$ | async"></ng-container>
+<div class="variants">
+  <div
+    [class.active-menu]="variant.name === currentVariant.name"
+    (click)="setMenu(variant)"
+    *ngFor="let variant of variantInfoList"
+    class="variant"
+  >
+    {{ variant.name }}
+  </div>
+</div>
+<item-list
+  [list]="currentVariant.list$ | async"
+  (onSelect)="_onSelect(currentVariant.name, $event)"
+  *ngIf="showItemList$ | async"
+></item-list>

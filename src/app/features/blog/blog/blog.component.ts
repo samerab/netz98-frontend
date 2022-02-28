@@ -1,22 +1,23 @@
+import { SearchBoxComponent } from './search-box/search-box.component';
+import { map } from 'rxjs/operators';
 import { Article } from './../../../store/article/article.model';
 import {
+  AfterViewInit,
   Component,
-  ElementRef,
   OnDestroy,
   OnInit,
-  Renderer2,
+  ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   EMPTY,
   filter,
+  merge,
   Observable,
-  of,
   Subscription,
   switchMap,
   take,
 } from 'rxjs';
-import { SearchOutput } from 'src/app/shared/article-variants/search-box/search-box.component';
 import { BlogService } from '../blog.service';
 
 @Component({
@@ -24,27 +25,24 @@ import { BlogService } from '../blog.service';
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss'],
 })
-export class BlogComponent implements OnInit, OnDestroy {
+export class BlogComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(SearchBoxComponent, { static: true }) searchBoxComponent =
+    {} as SearchBoxComponent;
   articles$: Observable<Article[]> = EMPTY;
   sub: Subscription = new Subscription();
-  originTotal = 0;
   resultTotal = 0;
   resultTitle = '';
+  condition: Observable<boolean> = EMPTY;
 
-  constructor(
-    private host: ElementRef,
-    private renderer: Renderer2,
-    private blogSv: BlogService,
-    private route: ActivatedRoute
-  ) {
+  constructor(private blogSv: BlogService, private route: ActivatedRoute) {
     this.loadArticles();
     this.setArticlesAndResultBox();
-    this.setOriginTotal();
+    this.condition = this.getCondition();
   }
 
-  ngOnInit(): void {
-    this.setView();
-  }
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -59,8 +57,11 @@ export class BlogComponent implements OnInit, OnDestroy {
   }
 
   fetchArticlesAndTakeAction() {
-    return this.route.params.pipe(
+    return this.route.queryParams.pipe(
       switchMap((params) => {
+        if (!params['searchKey']) {
+          this.searchBoxComponent.clear();
+        }
         return this.blogSv.fetchArticlesAndTakeAction(params, (length, title) =>
           this.setResultBox(length, title)
         );
@@ -72,43 +73,29 @@ export class BlogComponent implements OnInit, OnDestroy {
     return this.blogSv.allArticles$;
   }
 
-  setOriginTotal() {
-    this.sub.add(
-      this.blogSv.allArticles$
-        .pipe(
-          filter((articles) => !!articles && articles.length > 0),
-          take(1)
-        )
-        .subscribe((articles) => (this.originTotal = articles.length))
+  get originTotal() {
+    return this.blogSv.allArticles$.pipe(
+      filter((articles) => !!articles && articles.length > 0),
+      take(1),
+      map((articles) => articles.length)
     );
   }
 
-  setView() {
-    this.sub.add(
-      this.blogSv.getView().subscribe((view) => this.onViewChange(view))
+  getCondition() {
+    return merge(
+      this.blogSv.allArticles$,
+      this.fetchArticlesAndTakeAction()
+    ).pipe(
+      switchMap(() => {
+        return this.originTotal.pipe(
+          map((oTotal) => this.resultTotal !== oTotal)
+        );
+      })
     );
-  }
-
-  onViewChange(view: string) {
-    if (view === 'top-img') {
-      this.renderer.addClass(this.host.nativeElement, 'top-img');
-      this.renderer.removeClass(this.host.nativeElement, 'side-img');
-    } else {
-      this.renderer.addClass(this.host.nativeElement, 'side-img');
-      this.renderer.removeClass(this.host.nativeElement, 'top-img');
-    }
   }
 
   setResultBox(length: number, title: string) {
     this.resultTitle = title;
     this.resultTotal = length;
-  }
-
-  onSearch(data: SearchOutput) {
-    this.setResultBox(
-      data.articles.length,
-      `Search Results for : '${data.searchKey}'`
-    );
-    this.articles$ = of(data.articles);
   }
 }

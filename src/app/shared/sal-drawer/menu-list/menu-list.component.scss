@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  font-size: 20px;
+
+  .variants {
+    display: flex;
+    flex-direction: column;
+    .variant {
+      //border-bottom: 1px solid #eee;
+      padding: 20px;
+    }
+  }
+
+  .active-menu {
+    background: #eee;
+  }
+}

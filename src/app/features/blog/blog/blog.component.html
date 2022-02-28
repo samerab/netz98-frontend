@@ -1,48 +1,13 @@
-<navbar
-  [articleList]="(allArticles$ | async) || []"
-  (onSearch)="onSearch($event)"
-></navbar>
-<div
-  *ngIf="resultTotal !== originTotal && resultTotal !== 0"
-  class="search-total"
->
-  <mat-icon
-    *ngIf="!resultTitle.includes('Search Results')"
-    [routerLink]="['/blog']"
-    >close</mat-icon
-  >
-  <span class="result-title">{{ resultTitle }}</span>
-  <span class="total"
-    >Results: <strong>{{ resultTotal }}</strong> Articles of
-    {{ originTotal }}</span
-  >
-</div>
-<article
-  [id]="article.id"
-  class="base"
-  *ngFor="let article of articles$ | async"
->
-  <div class="img">
-    <a [href]="article.link" target="_blank">
-      <img [src]="article.imgSrc ? article.imgSrc : 'assets/null.svg'" />
-    </a>
-  </div>
-  <header class="article-header">
-    <a [href]="article.link" target="_blank">
-      <h1>{{ article.title }}</h1>
-    </a>
-    <div class="meta-data">
-      <div class="pub-date">
-        <mat-icon>calendar_today</mat-icon>
-        <span>{{ article.pubDate | date: "dd/MM/yy" }}</span>
-      </div>
-      <div [routerLink]="['/blog/author', article.author]" class="author">
-        <mat-icon>person</mat-icon>
-        <span>{{ article.author }}</span>
-      </div>
-    </div>
-  </header>
-  <div class="summary">
-    <p>{{ article.summary }}</p>
-  </div>
-</article>
+<navbar></navbar>
+<result-box
+  [originTotal]="originTotal | async"
+  [resultTotal]="resultTotal"
+  [resultTitle]="resultTitle"
+  *ngIf="condition | async"
+></result-box>
+
+<article-list [articleList]="articles$ | async"></article-list>
+
+<sal-portal hostId="search">
+  <search-box></search-box>
+</sal-portal>

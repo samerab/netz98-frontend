@@ -1,0 +1,35 @@
+<article
+  #container
+  [id]="article.id"
+  class="base"
+  [class.top-img]="layoutSv.sXs | async"
+  [class.side-img]="!(layoutSv.sXs | async)"
+>
+  <div class="img">
+    <a [href]="article.link" target="_blank">
+      <img [src]="article.imgSrc ? article.imgSrc : 'assets/null.svg'" />
+    </a>
+  </div>
+  <header class="article-header">
+    <a [href]="article.link" target="_blank">
+      <h1>{{ article.title }}</h1>
+    </a>
+    <div class="meta-data">
+      <div class="pub-date">
+        <mat-icon>calendar_today</mat-icon>
+        <span>{{ article.pubDate | date: "dd/MM/yy" }}</span>
+      </div>
+      <div
+        [routerLink]="['/blog']"
+        [queryParams]="{ author: article.author }"
+        class="author"
+      >
+        <mat-icon>person</mat-icon>
+        <span>{{ article.author }}</span>
+      </div>
+    </div>
+  </header>
+  <div class="summary">
+    <p>{{ article.summary }}</p>
+  </div>
+</article>

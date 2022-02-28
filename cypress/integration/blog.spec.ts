@@ -21,16 +21,16 @@ describe('blog page', () => {
   it('should display a list of articles with top image view', () => {
     cy.get('.menu button').first().click();
     cy.get('.cdk-overlay-pane button').should('have.length', 2);
-    cy.get('app-blog').should('not.have.class', 'top-img');
+    cy.get('article').last().should('not.have.class', 'top-img');
     cy.get('.cdk-overlay-pane button').first().click();
-    cy.get('app-blog').should('have.class', 'top-img');
+    cy.get('article').first().should('have.class', 'top-img');
   });
 
   it('should display a list of articles with side image view', () => {
     cy.get('.menu button').first().click();
     cy.get('.cdk-overlay-pane button').last().click();
-    cy.get('app-blog').should('have.class', 'side-img');
-    cy.get('app-blog').should('not.have.class', 'top-img');
+    cy.get('article').first().should('have.class', 'side-img');
+    cy.get('article').first().should('not.have.class', 'top-img');
   });
 
   it('should display a list of articles by author set the result box', () => {

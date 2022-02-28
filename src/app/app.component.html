@@ -1,18 +1,32 @@
-<mat-toolbar>
-  <div [routerLink]="['/home']" class="logo">
-    <img src="assets/logo.jpeg" />
+<sal-drawer [isOpen$]="drawerIsOpen$">
+  <div class="sidenav" sidenav>
+    <app-menu-list
+      (onSelect)="onSelect($event)"
+      [drawerState$]="drawerIsOpen$"
+      [routerLink]="['/blog']"
+      [queryParams]="selectedItem"
+    ></app-menu-list>
   </div>
-  <h2
-    [routerLink]="['/home']"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-  >
-    Home
-  </h2>
-  <h2 [routerLink]="['blog']" routerLinkActive="active">Blog</h2>
-</mat-toolbar>
+  <mat-toolbar>
+    <div [routerLink]="['/home']" class="logo">
+      <img src="assets/logo.jpeg" />
+    </div>
+    <h2
+      [routerLink]="['/home']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Home
+    </h2>
+    <h2 [routerLink]="['blog']" routerLinkActive="active">Blog</h2>
+    <span class="spacer"></span>
+    <div *ngIf="layoutSv.sXs | async" (click)="openDrawer()" class="hamburger">
+      <mat-icon>menu</mat-icon>
+    </div>
+  </mat-toolbar>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</sal-drawer>
 
 <div *ngIf="loading$ | async" class="spinner">
   <mat-spinner></mat-spinner>
